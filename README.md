@@ -1,2 +1,2 @@
-# Week1
- Getting Started with iOS Development
+# RAVN iOS Nerdery
+Here will be published the works done in the iOS Nerdery in RAVN :)
