@@ -1,2 +1,2 @@
 # Module 1 - SwiftUI Basics
-2 Week
+This repository will be divided in 2 weeks
