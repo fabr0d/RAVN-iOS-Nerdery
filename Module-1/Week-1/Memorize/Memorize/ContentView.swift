@@ -7,22 +7,40 @@
 
 import SwiftUI
 
-let PlacesRange: ClosedRange<Int> = 0x1F3E0...0x1F3F0
-let FoodsRange: ClosedRange<Int> = 0x1F950...0x1F95E
-let AnimalsRange: ClosedRange<Int> = 0x1F985...0x1F991
-
-func HexRangeToStringArray (range: ClosedRange<Int>) -> [String]{
-    var EmojiList: [String] = []
-    for i in range {
-        let emoji = String(UnicodeScalar(i) ?? "-")
-        EmojiList.append(emoji)
+struct HelpFunctions {
+    static func HexRangeToStringArray (range: ClosedRange<Int>) -> [String]{
+        var EmojiList: [String] = []
+        for i in range {
+            let emoji = String(UnicodeScalar(i) ?? "-")
+            EmojiList.append(emoji)
+        }
+        return EmojiList
     }
-    return EmojiList
+    static func GenCardViewArray (emojis: [String]) -> [CardView]{
+        var CardViewArray: [CardView] = []
+        for i in 0..<emojis.count {
+            let TcardView = CardView(content: emojis[i], isFaceUp: true)
+            CardViewArray.append(TcardView)
+        }
+        return CardViewArray
+    }
+    static func WidthThatBestFits (CardCount: Int) -> CGFloat {
+        if CardCount < 5 {
+            return 130
+        } else if CardCount < 10{
+            return 90
+        } else if CardCount < 17 {
+            return 80
+        }
+        return 60
+    }
 }
 
-let PlacesEmojis = HexRangeToStringArray(range: PlacesRange)
-let FoodsEmojis = HexRangeToStringArray(range: FoodsRange)
-let AnimalsEmojis = HexRangeToStringArray(range: AnimalsRange)
+struct ListsOfEmojis {
+    static let PlacesEmojis = HelpFunctions.HexRangeToStringArray(range: 0x1F3E0...0x1F3F0)
+    static let FoodsEmojis = HelpFunctions.HexRangeToStringArray(range: 0x1F950...0x1F95E)
+    static let AnimalsEmojis = HelpFunctions.HexRangeToStringArray(range: 0x1F985...0x1F991)
+}
 
 struct CardView: View {
     var id = UUID()
@@ -45,30 +63,10 @@ struct CardView: View {
     }
 }
 
-func GenCardViewArray (emojis: [String]) -> [CardView]{
-    var CardViewArray: [CardView] = []
-    for i in 0..<emojis.count {
-        let TcardView = CardView(content: emojis[i], isFaceUp: true)
-        CardViewArray.append(TcardView)
-    }
-    return CardViewArray
-}
-
-func widthThatBestFits (CardCount: Int) -> CGFloat {
-    if CardCount < 5 {
-        return 130
-    } else if CardCount < 10{
-        return 90
-    } else if CardCount < 17 {
-        return 80
-    }
-    return 60
-}
-
 struct ContentView: View {
-    @State var OnScreenEmojis: [String] = PlacesEmojis
-    @State var CardViewArray: [CardView] = GenCardViewArray(emojis: PlacesEmojis)
-    @State var emojiCount: Int = Int.random(in: 4...PlacesEmojis.count)
+    @State var OnScreenEmojis: [String] = ListsOfEmojis.PlacesEmojis
+    @State var CardViewArray: [CardView] = HelpFunctions.GenCardViewArray(emojis: ListsOfEmojis.PlacesEmojis)
+    @State var emojiCount: Int = Int.random(in: 4...ListsOfEmojis.PlacesEmojis.count)
     var body: some View {
         VStack {
             Text("Memorize!")
@@ -79,7 +77,7 @@ struct ContentView: View {
                     columns: [
                         GridItem(
                             .adaptive(
-                                minimum: widthThatBestFits(CardCount: emojiCount)
+                                minimum: HelpFunctions.WidthThatBestFits(CardCount: emojiCount)
                             )
                         )
                     ]
@@ -102,8 +100,8 @@ struct ContentView: View {
     }
     var SetPlaces: some View{
         Button {
-            OnScreenEmojis = PlacesEmojis.shuffled()
-            CardViewArray = GenCardViewArray(emojis: OnScreenEmojis)
+            OnScreenEmojis = ListsOfEmojis.PlacesEmojis.shuffled()
+            CardViewArray = HelpFunctions.GenCardViewArray(emojis: OnScreenEmojis)
             emojiCount = Int.random(in: 4...CardViewArray.count)
         } label: {
             VStack {
@@ -114,8 +112,8 @@ struct ContentView: View {
     }
     var SetFoods: some View{
         Button {
-            OnScreenEmojis = FoodsEmojis.shuffled()
-            CardViewArray = GenCardViewArray(emojis: OnScreenEmojis)
+            OnScreenEmojis = ListsOfEmojis.FoodsEmojis.shuffled()
+            CardViewArray = HelpFunctions.GenCardViewArray(emojis: OnScreenEmojis)
             emojiCount = Int.random(in: 4...CardViewArray.count)
         } label: {
             VStack {
@@ -126,8 +124,8 @@ struct ContentView: View {
     }
     var SetAnimals: some View{
         Button {
-            OnScreenEmojis = AnimalsEmojis.shuffled()
-            CardViewArray = GenCardViewArray(emojis: OnScreenEmojis)
+            OnScreenEmojis = ListsOfEmojis.AnimalsEmojis.shuffled()
+            CardViewArray = HelpFunctions.GenCardViewArray(emojis: OnScreenEmojis)
             emojiCount = Int.random(in: 4...CardViewArray.count)
         } label: {
             VStack {
