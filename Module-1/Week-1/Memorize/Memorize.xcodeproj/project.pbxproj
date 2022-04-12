@@ -13,6 +13,7 @@
 		F914754727FCA8F900F64495 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F914754627FCA8F900F64495 /* Preview Assets.xcassets */; };
 		F970F5CA280479E3008F24F5 /* HelpFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F970F5C9280479E3008F24F5 /* HelpFunctions.swift */; };
 		F970F5CC28048590008F24F5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F970F5CB28048590008F24F5 /* CardView.swift */; };
+		F99D06002805CE4A00CA9EF8 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99D05FF2805CE4A00CA9EF8 /* MemoryGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		F914754627FCA8F900F64495 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F970F5C9280479E3008F24F5 /* HelpFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpFunctions.swift; sourceTree = "<group>"; };
 		F970F5CB28048590008F24F5 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		F99D05FF2805CE4A00CA9EF8 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				F914753F27FCA8F700F64495 /* MemorizeApp.swift */,
 				F914754127FCA8F700F64495 /* ContentView.swift */,
+				F99D05FF2805CE4A00CA9EF8 /* MemoryGame.swift */,
 				F914754327FCA8F900F64495 /* Assets.xcassets */,
 				F914754527FCA8F900F64495 /* Preview Content */,
 				F970F5C9280479E3008F24F5 /* HelpFunctions.swift */,
@@ -145,6 +148,7 @@
 			files = (
 				F970F5CA280479E3008F24F5 /* HelpFunctions.swift in Sources */,
 				F914754227FCA8F700F64495 /* ContentView.swift in Sources */,
+				F99D06002805CE4A00CA9EF8 /* MemoryGame.swift in Sources */,
 				F970F5CC28048590008F24F5 /* CardView.swift in Sources */,
 				F914754027FCA8F700F64495 /* MemorizeApp.swift in Sources */,
 			);
