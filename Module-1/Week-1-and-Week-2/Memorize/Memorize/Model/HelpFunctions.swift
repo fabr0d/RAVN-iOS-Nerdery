@@ -8,11 +8,15 @@
 import SwiftUI
 
 extension Color { //From stackoverflow.com/questions/56874133/use-hex-color-in-swiftui
+    
     init(hex: String) {
+        
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
+        
         Scanner(string: hex).scanHexInt64(&int)
         let a, r, g, b: UInt64
+        
         switch hex.count {
         case 3: // RGB (12-bit)
             (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
@@ -55,20 +59,23 @@ struct HelpFunctions {
         return 60
     }
     
-    static func specialScore(firstTime: Date, secondTime: Date, factor: Int, addOrSubtract: Bool) -> Int
-    { //EC 4
+    static func specialScore(firstTime: Date, secondTime: Date, factor: Int, adds: Bool) -> Int { //EC 4
         let diference: Double = firstTime.distance(to: secondTime)
-        if addOrSubtract == true {
-            if diference > 3 {
+        let roundedDiference = Int(diference.rounded())
+        
+        if adds {
+            if diference > 3 { //Match
                 return 1 * factor
             }
-            return ( 3 - Int(diference.rounded()) ) * factor
+            return ( 3 - roundedDiference ) * factor
         }
         else {
-            if diference > 10 {
+            if diference > 10 { //penalty
                 return 10 * factor
+            } else if roundedDiference == 0 { //bug solved
+                return 1 * factor
             }
-            return Int(diference.rounded()) * factor
+            return roundedDiference * factor
         }
     }
 }
