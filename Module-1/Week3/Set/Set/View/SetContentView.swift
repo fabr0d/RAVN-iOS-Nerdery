@@ -46,17 +46,9 @@ struct RegularSetGameView: View {
     @ViewBuilder
     func cardView(for card: SetGame<RegularSetGame.CardContent>.Card) -> some View {
         Group {
-            if let match = card.isMatched {
-               if match {
-                   CardView(card: card).cardify(.green)
-               } else {
-                   CardView(card: card).cardify(.red)
-               }
-           } else if card.isSelected {
-               CardView(card: card).cardify(.blue)
-           } else {
-               CardView(card: card).cardify(.black)
-           }
+            Text("\(card.content.shape.rawValue)")
+            Text("\(card.content.color.rawValue)")
+            Text("\(card.content.shading.rawValue)")
         }
         .padding(1)
     }

@@ -31,17 +31,29 @@ struct CardView: View {
                     
                 case .diamond:
                     switch card.content.shading {
-                        case .solid: //to do
-                        case .striped: //to do
-                        case .open: //to do
+                        case .solid:
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill()
+                        case .striped:
+                        RoundedRectangle(cornerRadius: 5)
+                            .opacity(DrawingConstants.opacity)
+                        case .open:
+                        RoundedRectangle(cornerRadius: 5)
+                            .strokeBorder(lineWidth: DrawingConstants.lineWidth)
                         
                     }
                     
                 case .rectangle:
                     switch card.content.shading {
-                    case .solid: //to do
-                    case .striped: //to do
-                    case .open: //to do
+                    case .solid:
+                        Rectangle()
+                            .fill()
+                    case .striped:
+                        Rectangle()
+                            .opacity(DrawingConstants.opacity)
+                    case .open:
+                        Rectangle()
+                            .strokeBorder(lineWidth: DrawingConstants.lineWidth)
                     }
                 }
             }

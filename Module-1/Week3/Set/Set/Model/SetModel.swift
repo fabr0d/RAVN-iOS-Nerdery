@@ -14,13 +14,6 @@ struct SetGame<CardContent> where CardContent: Hashable {
     private(set) var deck = [Card]()
     private(set) var potentialSet = [Card]()
     
-    struct Card: Identifiable {
-        let id = UUID()
-        let content: CardContent
-        var isSelected = false
-        var isMatched: Bool?
-    }
-    
     init(createCardContent: () -> Set<CardContent>) {
         cards = Array<Card>()
         let content = createCardContent()
@@ -114,4 +107,11 @@ struct SetGame<CardContent> where CardContent: Hashable {
             }
         }
     }
+    struct Card: Identifiable {
+        let id = UUID()
+        let content: CardContent
+        var isSelected = false
+        var isMatched: Bool?
+    }
+
 }

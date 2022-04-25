@@ -10,13 +10,6 @@ import SwiftUI
 class RegularSetGame: ObservableObject {
     typealias Card = SetGame<CardContent>.Card
     
-    struct CardContent: Equatable, Hashable {
-        var number: Int
-        var shape: ShapeType
-        var color: ShapeColor
-        var shading: ShapeShading
-    }
-    
     @Published private var model: SetGame<CardContent>
     
     init() {
@@ -89,6 +82,13 @@ class RegularSetGame: ObservableObject {
     
     var deck: Array<Card> {
         model.deck
+    }
+    
+    struct CardContent: Equatable, Hashable {
+        var number: Int
+        var shape: ShapeType
+        var color: ShapeColor
+        var shading: ShapeShading
     }
     
     enum ShapeType: CaseIterable {
