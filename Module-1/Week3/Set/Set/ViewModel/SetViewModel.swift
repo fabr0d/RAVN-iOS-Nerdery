@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-class RegularSetGame: ObservableObject {
+class SetViewModel: ObservableObject {
     typealias Card = SetGame<CardContent>.Card
     
     @Published private var model: SetGame<CardContent>
     
     init() {
-        self.model = RegularSetGame.createGame()
+        self.model = SetViewModel.createGame()
     }
     
     private static func createGame() -> SetGame<CardContent> {
@@ -53,7 +53,7 @@ class RegularSetGame: ObservableObject {
     }
     
     func startNewGame() {
-        model = RegularSetGame.createGame()
+        model = SetViewModel.createGame()
     }
     
     func deal() {
@@ -63,16 +63,15 @@ class RegularSetGame: ObservableObject {
     func areMatched() {
         model.areMatched {
             if (model.potentialSet[0].content.color == model.potentialSet[1].content.color && model.potentialSet[1].content.color == model.potentialSet[2].content.color) || (model.potentialSet[0].content.color != model.potentialSet[1].content.color && model.potentialSet[1].content.color != model.potentialSet[2].content.color && model.potentialSet[0].content.color != model.potentialSet[2].content.color) {
-                return true
-            } else if (model.potentialSet[0].content.number == model.potentialSet[1].content.number && model.potentialSet[1].content.number == model.potentialSet[2].content.number) || (model.potentialSet[0].content.number != model.potentialSet[1].content.number && model.potentialSet[1].content.number != model.potentialSet[2].content.number && model.potentialSet[0].content.number != model.potentialSet[2].content.number) {
-                return true
-            } else if (model.potentialSet[0].content.shading == model.potentialSet[1].content.shading && model.potentialSet[1].content.shading == model.potentialSet[2].content.shading) || (model.potentialSet[0].content.shading != model.potentialSet[1].content.shading && model.potentialSet[1].content.shading != model.potentialSet[2].content.shading && model.potentialSet[0].content.shading != model.potentialSet[2].content.shading) {
-                return true
-            } else if (model.potentialSet[0].content.shape == model.potentialSet[1].content.shape && model.potentialSet[1].content.shape == model.potentialSet[2].content.shape) || (model.potentialSet[0].content.shape != model.potentialSet[1].content.shape && model.potentialSet[1].content.shape != model.potentialSet[2].content.shape && model.potentialSet[0].content.shape != model.potentialSet[2].content.shape) {
-                return true
-            } else {
-                return false
+                if (model.potentialSet[0].content.number == model.potentialSet[1].content.number && model.potentialSet[1].content.number == model.potentialSet[2].content.number) || (model.potentialSet[0].content.number != model.potentialSet[1].content.number && model.potentialSet[1].content.number != model.potentialSet[2].content.number && model.potentialSet[0].content.number != model.potentialSet[2].content.number) {
+                    if (model.potentialSet[0].content.shading == model.potentialSet[1].content.shading && model.potentialSet[1].content.shading == model.potentialSet[2].content.shading) || (model.potentialSet[0].content.shading != model.potentialSet[1].content.shading && model.potentialSet[1].content.shading != model.potentialSet[2].content.shading && model.potentialSet[0].content.shading != model.potentialSet[2].content.shading) {
+                        if (model.potentialSet[0].content.shape == model.potentialSet[1].content.shape && model.potentialSet[1].content.shape == model.potentialSet[2].content.shape) || (model.potentialSet[0].content.shape != model.potentialSet[1].content.shape && model.potentialSet[1].content.shape != model.potentialSet[2].content.shape && model.potentialSet[0].content.shape != model.potentialSet[2].content.shape) {
+                            return true
+                        }
+                    }
+                }
             }
+            return false
         }
     }
     
@@ -91,13 +90,13 @@ class RegularSetGame: ObservableObject {
         var shading: ShapeShading
     }
     
-    enum ShapeType: CaseIterable {
+    enum ShapeType: String, CaseIterable {
         case circle
         case diamond
         case rectangle
     }
     
-    enum ShapeColor: CaseIterable {
+    enum ShapeColor: String, CaseIterable {
         case green
         case purple
         case red

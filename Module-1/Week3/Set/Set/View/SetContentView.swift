@@ -7,55 +7,95 @@
 
 import SwiftUI
 
-struct RegularSetGameView: View {
-    @ObservedObject var game = RegularSetGame()
+struct SetContentView: View {
+    @ObservedObject var game = SetViewModel()
     
     var body: some View {
         VStack {
-            gameBody
-            Spacer()
-            bottomBody.padding(.horizontal)
-        }
-    }
-    
-    var gameBody: some View {
-        VStack {
-            AspectVGrid(items: game.cardsOnBoard, aspectRatio: 2/3, content: { card in
-                cardView(for: card)
-                    .onTapGesture {
-                        game.choose(card)
-                    }
-            })
-        }
-    }
-    
-    var bottomBody: some View {
-        HStack(alignment: .center) {
-            Button("New Game") {
-                game.startNewGame()
+            VStack {
+                AspectVGrid(items: game.cardsOnBoard, aspectRatio: 2/3, content: { card in
+                    cardView(for: card)
+                        .onTapGesture {
+                            game.choose(card)
+                        }
+                })
             }
             Spacer()
-            if !game.deck.isEmpty {
-                Button("+3") {
-                    game.deal()
+            
+            HStack(alignment: .center) {
+                Button("New Game") {
+                    game.startNewGame()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .font(.title3)
+                
+                if !game.deck.isEmpty {
+                    Button("+3") {
+                        game.deal()
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .font(.title3)
                 }
             }
+            .padding()
         }
     }
     
     @ViewBuilder
-    func cardView(for card: SetGame<RegularSetGame.CardContent>.Card) -> some View {
+    func cardView(for card: SetGame<SetViewModel.CardContent>.Card) -> some View {
         Group {
-            Text("\(card.content.shape.rawValue)")
-            Text("\(card.content.color.rawValue)")
-            Text("\(card.content.shading.rawValue)")
+            if let cardMatched = card.isMatched {
+               if cardMatched {
+                   CardView(card: card).cardModifier(.green)
+               } else {
+                   CardView(card: card).cardModifier(.red)
+               }
+           } else if card.isSelected {
+               CardView(card: card).cardModifier(.blue)
+           } else {
+               CardView(card: card).cardModifier(.black)
+           }
         }
-        .padding(1)
+        .padding(4)
     }
 }
 
+struct CardModifier: ViewModifier {
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            let cardShape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+            cardShape
+                .fill()
+                .foregroundColor(.white)
+            cardShape
+                .strokeBorder(lineWidth: DrawingConstants.lineWidth)
+                .foregroundColor(color)
+            content
+        }
+    }
+    
+    private struct DrawingConstants {
+        static let cornerRadius: CGFloat = 15
+        static let lineWidth: CGFloat = 3
+    }
+}
+
+extension View {
+    func cardModifier(_ color: Color) -> some View {
+        self.modifier(CardModifier(color: color))
+    }
+}
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        RegularSetGameView()
+        SetContentView()
+            .previewInterfaceOrientation(.portrait)
     }
 }

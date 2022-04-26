@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    let card: SetGame<RegularSetGame.CardContent>.Card
+    let card: SetGame<SetViewModel.CardContent>.Card
     
     var body: some View {
         VStack {
@@ -16,49 +16,50 @@ struct CardView: View {
                 
                 switch card.content.shape {
                     
-                case .circle:
-                    switch card.content.shading {
-                        case .solid:
-                            Circle()
-                                .fill()
-                        case .striped:
-                            Circle()
-                                .opacity(DrawingConstants.opacity)
-                        case .open:
-                            Circle()
-                                .strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                    }
+                    case .circle:
+                        switch card.content.shading {
+                            case .solid:
+                                Circle()
+                                    .fill()
+                            case .striped:
+                                Circle()
+                                    .opacity(DrawingConstants.opacity)
+                            case .open:
+                                Circle()
+                                    .strokeBorder(lineWidth: DrawingConstants.lineWidth)
+                        }
                     
-                case .diamond:
-                    switch card.content.shading {
-                        case .solid:
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill()
-                        case .striped:
-                        RoundedRectangle(cornerRadius: 5)
-                            .opacity(DrawingConstants.opacity)
-                        case .open:
-                        RoundedRectangle(cornerRadius: 5)
-                            .strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                        
-                    }
+                    case .diamond:
+                        switch card.content.shading {
+                            case .solid:
+                                Diamond()
+                                    .fill()
+                            case .striped:
+                                Diamond()
+                                    .opacity(DrawingConstants.opacity)
+                            case .open:
+                                Diamond()
+                                    .stroke(lineWidth: DrawingConstants.lineWidth)
+                            
+                        }
                     
-                case .rectangle:
-                    switch card.content.shading {
-                    case .solid:
-                        Rectangle()
-                            .fill()
-                    case .striped:
-                        Rectangle()
-                            .opacity(DrawingConstants.opacity)
-                    case .open:
-                        Rectangle()
-                            .strokeBorder(lineWidth: DrawingConstants.lineWidth)
-                    }
+                    case .rectangle:
+                        switch card.content.shading {
+                            case .solid:
+                                Rectangle()
+                                    .fill()
+                            case .striped:
+                                Rectangle()
+                                    .opacity(DrawingConstants.opacity)
+                            case .open:
+                                Rectangle()
+                                    .strokeBorder(lineWidth: DrawingConstants.lineWidth)
+                        }
                 }
             }
             .aspectRatio(2/1, contentMode: .fit)
-            .foregroundColor(RegularSetGame.selectColor(for: card))
+            .foregroundColor(SetViewModel.selectColor(for: card))
+            .padding(DrawingConstants.padding)
         }
         .padding(DrawingConstants.padding)
     }
@@ -73,7 +74,7 @@ struct CardView: View {
 struct CardView_Previews: PreviewProvider {
     
     static var previews: some View {
-        let game = RegularSetGame()
-        CardView(card: game.deck[1])
+        let game = SetViewModel()
+        CardView(card: game.deck[Int.random(in: 0...game.deck.count)])
     }
 }
