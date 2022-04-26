@@ -59,7 +59,7 @@ struct HelpFunctions {
         return 60
     }
     
-    static func specialScore(firstTime: Date, secondTime: Date, factor: Int, adds: Bool) -> Int { //EC 4
+    static func specialScore(firstTime: Date, secondTime: Date, factor: Int, adds: Bool) -> Int {
         let diference: Double = firstTime.distance(to: secondTime)
         let roundedDiference = Int(diference.rounded())
         

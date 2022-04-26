@@ -16,7 +16,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var firstClickTime: Date?
     private(set) var secondClickTime: Date?
     
-    private var indexOfTheOneAndOnlyFaceUpCard: Int?
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get { cards.indices.filter({ cards[$0].isFaceUp }).oneAndOnly }
+        set { cards.indices.forEach { cards[$0].isFaceUp = ($0 == newValue) } }
+    }
     
     mutating func choose(_ card: Card<String>) { //20
         
@@ -57,25 +60,22 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     score -= HelpFunctions.specialScore(firstTime: firstClickTime!, secondTime: secondClickTime!, factor: 2, adds: false)
                     
                 }
-                indexOfTheOneAndOnlyFaceUpCard = nil
+                
+                cards[chosenIndex].isFaceUp.toggle()
+                firstClickTime = Date()
                 
             } else {
-                for index in cards.indices {
-                    cards[index].isFaceUp = false
-                }
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
-            cards[chosenIndex].isFaceUp.toggle()
-            firstClickTime = Date()
         }
     }
     
-    init(theme: Theme) {
+    init(_ theme: Theme) {
         score = 0
-        cards = Array<Card<String>>()
+        cards = []
         
         let emojiSetShuffled = theme.setOfEmojis.shuffled() //5
-        themeOnDisplay = Theme(themeName: theme.name, emojiList: emojiSetShuffled, color: theme.cardColor)
+        themeOnDisplay = Theme(theme.name, emojiSetShuffled, theme.cardColor)
         
         for pairIndex in 0..<themeOnDisplay.numberOfPairs {
             let content: CardContent = themeOnDisplay.setOfEmojis[pairIndex] as! CardContent
@@ -86,4 +86,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     
+}
+
+extension Array {
+    var oneAndOnly: Element? {
+        if count == 1 {
+            return first
+        } else {
+            return nil
+        }
+    }
 }
