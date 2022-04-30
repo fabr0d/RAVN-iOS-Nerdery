@@ -10,18 +10,20 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
-    @Published private var model: MemoryGame<String> = createMemoryGame(randomNum: Int.random(in: 0..<globalThemes.count))
+    typealias vmCard = Card<String>
     
-    static var globalThemes: [Theme] = [
-        Theme(themeName: "Places", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x1F3E0...0x1F3F0), color: "#FF0000"), //17Elements
-        Theme(themeName: "Food", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x1F950...0x1F95E), color: "#00FF00"), //15Elements
-        Theme(themeName: "Animals", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x1F985...0x1F991), color: "#0000FF"), //13Elements
-        Theme(themeName: "Zodiac", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x2648...0x2653), color: "#FFFF00"), //12Elements
-        Theme(themeName: "Japanese", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x1F232...0x1F236), color: "#00FFFF"), //5Elements
-        Theme(themeName: "Faces", emojiList: HelpFunctions.hexRangeToStringArray(range: 0x1F973...0x1F976), color: "#FF00FF") //4Elements
+    @Published private var model = createMemoryGame(randomNum: Int.random(in: 0..<globalThemes.count))
+    
+    private static var globalThemes: [Theme] = [
+        Theme("Places", HelpFunctions.hexRangeToStringArray(range: 0x1F3E0...0x1F3F0), "#FF0000"), //17Elements
+        Theme("Food", HelpFunctions.hexRangeToStringArray(range: 0x1F950...0x1F95E), "#00FF00"), //15Elements
+        Theme("Animals", HelpFunctions.hexRangeToStringArray(range: 0x1F985...0x1F991), "#0000FF"), //13Elements
+        Theme("Zodiac", HelpFunctions.hexRangeToStringArray(range: 0x2648...0x2653), "#FFFF00"), //12Elements
+        Theme("Japanese", HelpFunctions.hexRangeToStringArray(range: 0x1F232...0x1F236), "#00FFFF"), //5Elements
+        Theme("Faces", HelpFunctions.hexRangeToStringArray(range: 0x1F973...0x1F976), "#FF00FF") //4Elements
     ] //8, 9
     
-    var cards: Array<Card<String>> {
+    var cards: Array<vmCard> {
         model.cards
     }
         
@@ -37,12 +39,16 @@ class EmojiMemoryGame: ObservableObject {
         model.score
     }
     
-    static func createMemoryGame(randomNum: Int) -> MemoryGame<String> {
-        MemoryGame<String>(theme: globalThemes[randomNum])
+    private static func createMemoryGame(randomNum: Int) -> MemoryGame<String> {
+        MemoryGame<String>(globalThemes[randomNum])
     }
     
-    func choose(_ card: Card<String>) {
+    func choose(_ card: vmCard) {
         model.choose(card)
+    }
+    
+    func shuffle() {
+        model.shuffle()
     }
     
     func newGame() { //11

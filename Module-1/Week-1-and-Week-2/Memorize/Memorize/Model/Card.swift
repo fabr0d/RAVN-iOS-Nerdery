@@ -8,9 +8,9 @@
 import Foundation
 
 struct Card<CardContent>: Identifiable {
-    var isFaceUp: Bool = false //12
-    var isMatched: Bool = false
-    var wasSeenBefore: Bool = false
-    var content: CardContent
-    var id: Int
+    var isFaceUp = false //12
+    var isMatched = false
+    var wasSeenBefore = false
+    let content: CardContent
+    let id: Int
 }
