@@ -11,25 +11,36 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
     var items: [Item]
     var aspectRatio: CGFloat
     var content: (Item) -> ItemView
+    var isPileOrDeck: Bool
     
-    init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
+    init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView, isPileOrDeck: Bool) {
         self.items = items
         self.aspectRatio = aspectRatio
         self.content = content
+        self.isPileOrDeck = isPileOrDeck
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemsAspectRatio: aspectRatio)
-                LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
-                    ForEach(items) { item in
-                        content(item).aspectRatio(aspectRatio, contentMode: .fit)
+        if !isPileOrDeck {
+            GeometryReader { geometry in
+                VStack {
+                    let width: CGFloat = widthThatFits(itemCount: items.count, in: geometry.size, itemsAspectRatio: aspectRatio)
+                    
+                    LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
+                        ForEach(items) { item in
+                            content(item).aspectRatio(aspectRatio, contentMode: .fit)
+                        }
                     }
                 }
-                Spacer(minLength: 0)
+            }
+        } else {
+            ZStack {
+                ForEach(items) { item in
+                    content(item).aspectRatio(aspectRatio, contentMode: .fit)
+                }
             }
         }
+        
     }
     
     private func adaptiveGridItem(width: CGFloat) -> GridItem {

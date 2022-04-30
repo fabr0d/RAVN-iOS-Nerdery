@@ -17,39 +17,35 @@ struct CardView: View {
     }
     
     var body: some View {
-        GeometryReader(content: { geometry in
+        GeometryReader { geometry in
             ZStack {
-                let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
-
-                if card.isFaceUp {
-                    shape.fill(.white)
-                    shape.strokeBorder(lineWidth: DrawingConstants.lineWidht)
-
-                    Text(card.content).font(font(in: geometry.size))
-                } else if card.isMatched {
-                    shape.opacity(0)
-                } else {
-                    shape.fill(
-                        LinearGradient(
-                            gradient: Gradient(
-                                colors: [linearGrad, Color.black]
-                            ),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                }
+                Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+                    .fill(linearGrad)
+                    .opacity(0.5)
+                    .padding(5)
+                Text(card.content)
+                    .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
+                    //.animation(Animation.easeInOut(duration: 2))
+                    .animation(Animation.linear(duration: 1).repeatForever(autoreverses: false))
+                    //.font(font(in: geometry.size))
+                    .font(Font.system(size: DrawingConstants.fontSize))
+                    .scaleEffect(scale(thatFits: geometry.size))
             }
-        })
+            .cardify(isFaceUp: card.isFaceUp, gradColor: linearGrad)
+        }
     }
     
-    private func font(in size: CGSize) -> Font {
-        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
+    private func scale(thatFits size: CGSize) -> CGFloat {
+        min(size.width, size.height) / (DrawingConstants.fontSize / DrawingConstants.fontScale)
     }
+    
+//    private func font(in size: CGSize) -> Font {
+//        Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
+//    }
     
     private struct DrawingConstants {
-        static let cornerRadius: CGFloat = 10
-        static let lineWidht: CGFloat = 3
-        static let fontScale: CGFloat = 0.75
+        static let fontScale: CGFloat = 0.7
+        static let fontSize: CGFloat = 32
+        
     }
 }

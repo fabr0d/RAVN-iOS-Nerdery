@@ -70,6 +70,10 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
+    mutating func shuffle() {
+        cards.shuffle()
+    }
+    
     init(_ theme: Theme) {
         score = 0
         cards = []

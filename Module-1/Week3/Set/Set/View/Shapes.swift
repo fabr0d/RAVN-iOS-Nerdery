@@ -14,13 +14,13 @@ struct Diamond: Shape {
         let down = CGPoint(x: rect.midX, y: rect.minY + rect.height)
         let left = CGPoint(x: rect.minX , y: rect.midY)
             
-        var p = Path()
-        p.move(to: top)
-        p.addLine(to : right)
-        p.addLine(to: down)
-        p.addLine(to: left)
-        p.addLine(to: top)
+        var path = Path()
+        path.move(to: top)
+        path.addLine(to : right)
+        path.addLine(to: down)
+        path.addLine(to: left)
+        path.addLine(to: top)
 
-        return p
+        return path
     }
 }

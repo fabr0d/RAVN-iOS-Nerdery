@@ -10,6 +10,7 @@
 		F935E2EC2816E2D8004E6E87 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F935E2EB2816E2D8004E6E87 /* AspectVGrid.swift */; };
 		F935E2EE2816E392004E6E87 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F935E2ED2816E392004E6E87 /* CardView.swift */; };
 		F935E2F42817425B004E6E87 /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F935E2F32817425B004E6E87 /* Shapes.swift */; };
+		F9EDD491281ADED000D9F154 /* CardModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EDD490281ADED000D9F154 /* CardModifier.swift */; };
 		F9F1D2EE2811BC890039367A /* SetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F1D2ED2811BC890039367A /* SetApp.swift */; };
 		F9F1D2F02811BC890039367A /* SetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F1D2EF2811BC890039367A /* SetContentView.swift */; };
 		F9F1D2F22811BC8B0039367A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9F1D2F12811BC8B0039367A /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		F935E2EB2816E2D8004E6E87 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		F935E2ED2816E392004E6E87 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		F935E2F32817425B004E6E87 /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		F9EDD490281ADED000D9F154 /* CardModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModifier.swift; sourceTree = "<group>"; };
 		F9F1D2EA2811BC890039367A /* Set.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Set.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9F1D2ED2811BC890039367A /* SetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetApp.swift; sourceTree = "<group>"; };
 		F9F1D2EF2811BC890039367A /* SetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				F935E2EB2816E2D8004E6E87 /* AspectVGrid.swift */,
 				F935E2ED2816E392004E6E87 /* CardView.swift */,
 				F935E2F32817425B004E6E87 /* Shapes.swift */,
+				F9EDD490281ADED000D9F154 /* CardModifier.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 				F9F1D2FF2811C5900039367A /* SetModel.swift in Sources */,
 				F935E2EC2816E2D8004E6E87 /* AspectVGrid.swift in Sources */,
 				F935E2EE2816E392004E6E87 /* CardView.swift in Sources */,
+				F9EDD491281ADED000D9F154 /* CardModifier.swift in Sources */,
 				F9F1D2EE2811BC890039367A /* SetApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

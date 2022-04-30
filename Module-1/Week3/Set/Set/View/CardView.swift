@@ -12,10 +12,9 @@ struct CardView: View {
     
     var body: some View {
         VStack {
+            //number of items in a card
             ForEach(0..<card.content.number, id: \.self) { _ in
-                
                 switch card.content.shape {
-                    
                     case .circle:
                         switch card.content.shading {
                             case .solid:
@@ -28,7 +27,6 @@ struct CardView: View {
                                 Circle()
                                     .strokeBorder(lineWidth: DrawingConstants.lineWidth)
                         }
-                    
                     case .diamond:
                         switch card.content.shading {
                             case .solid:
@@ -42,7 +40,6 @@ struct CardView: View {
                                     .stroke(lineWidth: DrawingConstants.lineWidth)
                             
                         }
-                    
                     case .rectangle:
                         switch card.content.shading {
                             case .solid:
@@ -72,7 +69,6 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
-    
     static var previews: some View {
         let game = SetViewModel()
         CardView(card: game.deck[Int.random(in: 0...game.deck.count)])

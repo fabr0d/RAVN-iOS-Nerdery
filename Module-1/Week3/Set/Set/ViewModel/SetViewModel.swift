@@ -79,8 +79,20 @@ class SetViewModel: ObservableObject {
         model.cardsOnBoard
     }
     
-    var deck: Array<Card> {
+    var deck: [Card] {
         model.deck
+    }
+    
+    var deckSize: Int {
+        model.deck.count
+    }
+    
+    var dPile: [Card] {
+        model.discardPile
+    }
+    
+    var discardPileSize: Int {
+        model.discardPile.count
     }
     
     struct CardContent: Equatable, Hashable {

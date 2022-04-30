@@ -13,53 +13,64 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Memorize!")
-                    .padding(.all)
-                    .font(.largeTitle)
-                
-                Text("Score: \(game.getScore)")
-                    .padding(.all)
-            }
+            gameHeader
+            gameBody
+            gameFooter
+        }
+        .padding()
+    }
+    
+    var gameHeader: some View {
+        HStack {
+            Text("Memorize!")
+                .padding(.all)
+                .font(.largeTitle)
             
-            ScrollView {
-                Text(game.themeName)
-                
-                AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
-                    if card.isMatched && !card.isFaceUp {
-                        Rectangle().opacity(0)
-                    } else {
-                        CardView(card, game.getColorCard)
-                            .padding(4)
-                            .onTapGesture {
-                                game.choose(card)
-                            }
-                    }
+            Text("Score: \(game.getScore)")
+                .padding(.all)
+        }
+    }
+    
+    var gameBody: some View {
+        ScrollView {
+            Text(game.themeName)
+            
+            AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
+                if card.isMatched && !card.isFaceUp {
+                    Color.clear
+                } else {
+                    CardView(card, game.getColorCard)
+                        .padding(3)
+                        .onTapGesture {
+                            game.choose(card)
+                        }
                 }
             }
-            
-            HStack {
-                Button {
-                    game.newGame()
-                } label: {
-                    Text("New Game")
-                }
-            }
-            .font(.title)
             .padding(.horizontal)
         }
-        .padding(.horizontal)
+    }
+    
+    var gameFooter: some View {
+        HStack {
+            Button {
+                game.newGame()
+            } label: {
+                Text("New Game").font(.title)
+            }
+            
+            Button("Shuffle"){
+                withAnimation {
+                    game.shuffle()
+                }
+            }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let game = EmojiMemoryGame()
-        Group {
-            EmojiMemoryGameView(game: game)
-                .preferredColorScheme(.light)
-            EmojiMemoryGameView(game: game)
-                .preferredColorScheme(.dark)
-        }
+        game.choose(game.cards.first!)
+        return EmojiMemoryGameView(game: game)
     }
 }
